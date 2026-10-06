@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal de Informes - Vigilancia Epidemiológica</title>
+  <style>
+    :root {
+      --bg-color: #f4f7fb;
+      --surface-color: #ffffff;
+      --border-color: #e2e8f0;
+      --border-color-hover: #cbd5e1;
+
+      /* Escala de azules */
+      --blue-950: #082f49;
+      --blue-900: #0c4a6e;
+      --blue-800: #075985;
+      --blue-700: #0369a1;
+      --blue-600: #0284c7;
+      --blue-500: #0ea5e9;
+      --blue-100: #e0f2fe;
+      --blue-50: #f0f9ff;
+
+      /* Neutros */
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-light: #64748b;
+
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
+      --shadow-md: 0 4px 14px rgba(7, 89, 133, 0.08);
+      --shadow-hover: 0 10px 25px -5px rgba(7, 89, 133, 0.15);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Encabezado */
+    .header {
+      background: linear-gradient(135deg, var(--blue-950) 0%, var(--blue-900) 100%);
+      color: #ffffff;
+      padding: 2.5rem 1.5rem;
+      border-bottom: 4px solid var(--blue-600);
+
+
+    }
+
+    .header-content {
+      max-width: 960px;
+      margin: 0 auto;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      & img {
+        max-width: 250px;
+        margin-left: 2rem;
+        margin-right: 2rem;
+      }
+    }
+
+    .header-badge {
+      display: inline-block;
+      background-color: rgba(224, 242, 254, 0.15);
+      color: var(--blue-100);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      margin-bottom: 0.85rem;
+      border: 1px solid rgba(224, 242, 254, 0.25);
+    }
+
+    .header-title {
+      font-size: 1.85rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.5rem;
+    }
+
+    .header-subtitle {
+      color: var(--blue-100);
+      font-size: 1.05rem;
+      font-weight: 400;
+      max-width: 650px;
+    }
+
+    /* Contenido principal */
+    .container {
+      max-width: 960px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem;
+      flex: 1;
+      width: 100%;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--blue-900);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background-color: var(--border-color);
+      margin-left: 0.75rem;
+    }
+
+    /* Tarjeta del informe */
+    .report-card {
+      background: var(--surface-color);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-md);
+      transition: all 0.25s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .report-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: var(--blue-600);
+      transition: width 0.2s ease;
+    }
+
+    .report-card:hover {
+      box-shadow: var(--shadow-hover);
+      border-color: var(--blue-500);
+      transform: translateY(-2px);
+    }
+
+    .report-card:hover::before {
+      width: 8px;
+    }
+
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .tag-blue {
+      background-color: var(--blue-50);
+      color: var(--blue-800);
+      border: 1px solid var(--blue-100);
+    }
+
+    .tag-neutral {
+      background-color: #f1f5f9;
+      color: var(--text-muted);
+    }
+
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--blue-950);
+      line-height: 1.35;
+    }
+
+    .card-description {
+      color: var(--text-muted);
+      font-size: 0.975rem;
+      line-height: 1.6;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 0.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .footer-info {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    /* Enlace / Botón */
+    .btn-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: var(--blue-700);
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 0.7rem 1.4rem;
+      border-radius: var(--radius-md);
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 4px rgba(7, 89, 133, 0.2);
+    }
+
+    .btn-link:hover {
+      background-color: var(--blue-800);
+      box-shadow: 0 4px 8px rgba(7, 89, 133, 0.3);
+      transform: translateX(3px);
+    }
+
+    .btn-link svg {
+      transition: transform 0.2s ease;
+    }
+
+    .btn-link:hover svg {
+      transform: translateX(3px);
+    }
+
+    /* Pie de página */
+    .footer {
+      background-color: #ffffff;
+      border-top: 1px solid var(--border-color);
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-light);
+      margin-top: auto;
+    }
+
+    @media (max-width: 640px) {
+      .header {
+        padding: 2rem 1.25rem;
+      }
+
+      .header-title {
+        font-size: 1.5rem;
+      }
+
+      .card-title {
+        font-size: 1.2rem;
+      }
+
+      .card-footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .btn-link {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Encabezado -->
+  <header class="header">
+    <div class="header-content">
+      <div>
+        <span class="header-badge">Dirección Provincial de Epidemiología</span>
+        <h1 class="header-title">Portal de Informes Epidemiológicos</h1>
+        <p class="header-subtitle">Repositorio de análisis y documentos técnicos de vigilancia epidemiológica de
+          Catamarca.</p>
+      </div>
+      <img src="public/img/logo_epidemio.png" alt="Logo de la Dirección Provincial de Epidemiología">
+    </div>
+  </header>
+
+  <!-- Contenido -->
+  <main class="container">
+    <h2 class="section-title">Informes Disponibles</h2>
+
+    <div class="report-card">
+      <div class="card-meta">
+        <span class="tag tag-blue">Unidad Centinela</span>
+        <span class="tag tag-blue">Año 2025</span>
+        <span class="tag tag-neutral">SE 1 - SE 52</span>
+      </div>
+
+      <h3 class="card-title">
+        Análisis de la Unidad Centinela de Infecciones Respiratorias Agudas Graves pediátricas en Catamarca (UC IRAG)
+      </h3>
+
+      <p class="card-description">
+        Caracterización del perfil epidemiológico, clínico y la etiología viral de la población pediátrica
+        (1 mes a 14 años) notificada como Infección Respiratoria Aguda Grave (IRAG e IRAGe) en el
+        Hospital Interzonal de Niños “Eva Perón” (HINEP) durante el año 2025.
+      </p>
+
+      <div class="card-footer">
+        <span class="footer-info">
+          <strong>Ámbito:</strong> HINEP - Catamarca · <strong>Formato:</strong> Informe interactivo
+        </span>
+
+        <a href="Analisis%20UC%20IRAG%20HINEP%202025.html" class="btn-link">
+          <span>Acceder al informe</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Pie de página -->
+  <footer class="footer">
+    <p>Ministerio de Salud · Dirección Provincial de Epidemiología de Catamarca</p>
+  </footer>
+
+</body>
+
+</html>
