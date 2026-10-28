@@ -20,6 +20,10 @@ class PortalNavbar extends HTMLElement {
       {
         title: 'Análisis UC IRAG HINEP 2025',
         url: 'Analisis_UC_IRAG_HINEP_2025.html'
+      },
+      {
+        title: 'Análisis UC IRAG HINEP 2026',
+        url: 'Analisis_UC_IRAG_HINEP_2026.html'
       }
     ];
 
