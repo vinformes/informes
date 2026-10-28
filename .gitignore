@@ -1,0 +1,43 @@
+# Archivos de sistema operativo
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Editores e IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# Entornos y dependencias de Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm/
+
+# Salidas temporales y caché de Quarto / R / Python
+.quarto/
+*_cache/
+*_files/
+*.tmp
+*.log
+
+# Entornos virtuales de Python (si se usan scripts locales)
+.venv/
+venv/
+ENV/
+__pycache__/
+
+# Preservar explícitamente configuración de agentes y OpenSpec
+!.agents/
+!openspec/
